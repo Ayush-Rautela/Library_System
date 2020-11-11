@@ -3,25 +3,52 @@ session_start();
 include('config.php');
 error_reporting(0);
 if(strlen($_SESSION['uid'])==0)
-    {   
+{   
 header('location:ulogin.php');
 }
-else{ 
+else
+{ 
+  $usertype = $_SESSION['user'];
 if(isset($_POST['change']))
   {
-    $password=md5($_POST['password']);
-    $newpassword=md5($_POST['newpassword']);
-    $email=$_SESSION['login'];
-    $sql =mysqli_query($con,"SELECT Password FROM tblstudents WHERE EmailId='$email' and Password='$password'");
-if(mysqli_num_rows($sql) == 1)
-{
-$con1=mysqli_query($con,"UPDATE tblstudents set Password='$newpassword' where EmailId='$email'");
-$msg="Your Password succesfully changed";
-}
-else {
-$error="Your current password is wrong";  
-}
-}
+    if($usertype=='Student')
+    {
+      $password=$_POST['password'];
+      $cpassword=$_POST['confirmpassword'];
+      $hash = password_hash($cpassword,PASSWORD_DEFAULT);
+      $id=$_SESSION['uid'];
+      $sql =mysqli_query($con,"SELECT * FROM tblstudents WHERE id='$id'");
+      if(mysqli_num_rows($sql) == 1)
+      {
+        $con1=mysqli_query($con,"UPDATE tblstudents set Password='$hash' where id='$id'");
+        $msg="Your Password succesfully changed";
+      }
+      else 
+      {
+      $error="Your current password is wrong";  
+      }
+    }
+    else
+    {
+      $password=$_POST['password'];
+      $cpassword=$_POST['confirmpassword'];
+      $hash = password_hash($cpassword,PASSWORD_DEFAULT);
+      $id=$_SESSION['uid'];
+      $sql =mysqli_query($con,"SELECT * FROM faculty WHERE Id='$id'");
+      if(mysqli_num_rows($sql) == 1)
+      {
+        $con1=mysqli_query($con,"UPDATE faculty set Password='$hash' where Id='$id'");
+        $msg="Your Password succesfully changed";
+      }
+      else 
+      {
+        $error="Your current password is wrong";  
+      }
+
+
+
+    }
+  } 
 
 ?>
 <!DOCTYPE html>

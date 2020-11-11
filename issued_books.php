@@ -77,34 +77,47 @@ background-size: cover;">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Book Name</th>
-                                            <th>ISBN </th>
+                                            
                                             <th>Issued Date</th>
-                                            <th>Return Date</th>
-                                            <th>Fine (in ₹)</th>
+                                            <th>Return Status</th>
+                                            <th>Fine (in Rs)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php 
-                                    $sid=$_SESSION['stdid'];
-                                    $sql="SELECT tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblstudents.StudentId='$sid' order by tblissuedbookdetails.id desc";
-                                    $query = mysqli_query($con,$sql);
+                                    $sid=$_SESSION['Sid'];
+                                    ?>
+                    
+
+                                    <?php
+                                    //$sql="SELECT tblbooks.BookName,tblbooks.ISBNNumber,StudentId.IssuesDate,tblissuedbookdetails.RetrunStatus,tblissuedbookdetails.id,tblissuedbookdetails.fine from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentID join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblstudents.StudentId='$sid' order by tblissuedbookdetails.id desc";
+                                    //$sql = "SELECT tblissuedbookdetails.StudentID,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.RetrunStatus,tblbooks.BookName,tblbooks.ISBNNumber"
+                                    
+                                    $query = mysqli_query($con,"SELECT * FROM tblissuedbookdetails WHERE StudentID='$sid'");
                                     $result=mysqli_fetch_array($query);
                                     $cnt=1;
+                                    
+                        
+
+                                  
                                     if(mysqli_num_rows($query) > 0)
                                     {?>
                                         <tr class="odd gradeX">
                                             <td class="center"><?php echo htmlentities($cnt);?></td>
-                                            <td class="center"><?php echo htmlentities($result['BookName']);?></td>
-                                            <td class="center"><?php echo htmlentities($result['ISBNNumber']);?></td>
+                                    
                                             <td class="center"><?php echo htmlentities($result['IssuesDate']);?></td>
-                                            <td class="center"><?php if($result['ReturnDate']=="")
+                                            <td class="center"><?php if($result['RetrunStatus']=="1")
                                             {?>
-                                            <span style="color:red">
-                                             <?php   echo htmlentities("Not Return Yet"); ?>
+                                            <span style="color:green">
+                                             <?php   echo htmlentities(" Returned"); ?>
                                                 </span>
-                                            <?php } else {
-                                            echo htmlentities($result['ReturnDate']);
+                                            <?php } else {?>
+                                                
+                                                <span style="color:green">
+                                                <?php   echo htmlentities(" Returned"); ?>
+                                                   </span>
+                                            
+                                        <?php 
                                         }
                                             ?></td>
                                               <td class="center"><?php echo htmlentities($result['fine']);?></td>

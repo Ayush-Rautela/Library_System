@@ -15,12 +15,12 @@ $sql=mysqli_query($con,"INSERT INTO  tblauthors(AuthorName) VALUES('$author')");
 if(mysqli_insert_id($con))
 {
 $_SESSION['msg']="Author Listed successfully";
-header('location:manage_publication.php');
+header('location:manage_authors.php');
 }
 else 
 {
 $_SESSION['error']="Something went wrong. Please try again";
-header('location:manage_publication.php');
+header('location:manage_authors.php');
 }
 
 }

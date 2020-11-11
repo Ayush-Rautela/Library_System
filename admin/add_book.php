@@ -19,12 +19,22 @@ $sql=mysqli_query($con,"INSERT INTO  tblbooks(BookName,CatId,AuthorId,ISBNNumber
 if(mysqli_insert_id($con))
 {
 $_SESSION['msg']="Book Listed successfully";
-header('location:manage-books.php');
+?>
+<script>
+    alert('hllo<?php echo$isbn; ?>');
+</script>
+<?
+//header('location:manage_books.php');
 }
 else 
 {
 $_SESSION['error']="Something went wrong. Please try again";
-header('location:manage-books.php');
+header('location:manage_books.php');
+?>
+<script>
+    alert('hllo<?php echo$isbn; ?>');
+</script>
+<?php
 }
 
 }

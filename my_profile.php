@@ -9,11 +9,11 @@ header('location:index.php');
 else{ 
 if(isset($_POST['update']))
 {    
-$sid=$_SESSION['stdid'];  
+$sid=$_SESSION['uid'];  
 $fname=$_POST['fullanme'];
 $mobileno=$_POST['mobileno'];
 
-$sql="UPDATE tblstudents set FullName='$fname',MobileNumber='$mobileno' where StudentId='$sid'";
+$sql="UPDATE tblstudents set FullName='$fname',MobileNumber='$mobileno' where id='$sid'";
 $query = mysqli_query($con,$sql);
 echo '<script>alert("Your profile has been updated")</script>';
 }
@@ -90,19 +90,23 @@ background-size: cover;">
                     <div class="panel-body" style="color: white">
                         <form name="signup" method="post">
                         <?php 
-                        $sid=$_SESSION['stdid'];
-                        $sql="SELECT StudentId,FullName,EmailId,MobileNumber,RegDate,UpdationDate,Status from  tblstudents  where StudentId='$sid' ";
+                        $sid=$_SESSION['uid'];
+                        $sql="SELECT * from  tblstudents  where id='$sid' ";
                         $query =mysqli_query($con,$sql);
                         $result=mysqli_fetch_array($query);
                         $cnt=1;
                         if(mysqli_num_rows($query) == 1)
                         {              ?>  
                             <div class="form-group">
-                                <label style="color:black;font-size: 20px;">Student ID : </label>
-                                <span style="color: green;font-weight: bold;font-size: 18px;">
+                                <label style="color:black;font-size: 17px;">Student ID : </label>
+                                <!-- <span style="color: green;font-weight: bold;font-size: 18px;"> -->
                                     <?php echo htmlentities($result['StudentId']);?>
-                                </span>
+                                <!-- </span> -->
                                
+                            </div>
+                            <div class="form-group">
+                                <label style="color:black;">Name: </label>
+                                <?php echo htmlentities($result['FullName']);?>
                             </div>
                             <div class="form-group">
                                 <label style="color:black;">Reg Date : </label>
@@ -116,10 +120,10 @@ background-size: cover;">
                             <?php } ?>
                             <div class="form-group">
                                 <label style="color:black;">Profile Status : </label>
-                                <?php if($result['Status']==1){?>
-                                <span style="color: green; font-weight: bold">Active</span>
+                                <?php if($result['Status']==0){?>
+                                <span style="color: red; font-weight: bold">Inactive</span>
                                 <?php } else { ?>
-                                <span style="color: red">Blocked</span>
+                                <span style="color: green">Active</span>
                                 <?php }?>
                             </div>
                             <div class="form-group">

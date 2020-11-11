@@ -117,7 +117,7 @@ background-size: cover;">
                      <table id="employee_data" class="table table-bordered table-hover" >  
                           <thead>  
                                <tr>  
-                                    <th>#</th>
+                                    <th>SNo.</th>
                                     <th>Category</th>
                                     <th>Status</th>
                                     <th>Creation Date</th>
@@ -135,10 +135,10 @@ background-size: cover;">
                 <td><?php echo $row['CategoryName']; ?></td>
                 <td class="center">
                   <?php if($row['Status']==1) {?>
-                    <a href="#" class="btn btn-success btn-xs">Active</a>
+                    <a  name ="active" class="btn btn-success btn-xs">Active</a>
                   <?php }
                    else {?>
-                    <a href="#" class="btn btn-danger btn-xs">Inactive</a>
+                    <a name = "inactive" class="btn btn-danger btn-xs">Inactive</a>
                   <?php } ?>
                 </td>
                 <td><?php echo $row['CreationDate']; ?></td>

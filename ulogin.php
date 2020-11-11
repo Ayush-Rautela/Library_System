@@ -12,7 +12,7 @@ if(isset($_POST['ulog']))
     } 
   else {
          $email=$_POST['login'];
-         $password=($_POST['logpass']);
+         $password=$_POST['logpass'];
          $utype =$_POST['utype'];
          if($utype=='Student')
          {
@@ -24,15 +24,18 @@ if(isset($_POST['ulog']))
             if(password_verify($password,$data['Password']))
             {
             $id = $data['id'];
+            $studentid = $data['StudentId'];
             session_start();
             $_SESSION['uid']=$id;
+            $_SESSION['user']=$utype;
+            $_SESSION['Sid']=$studentid;
             header('location:dashboard.php');
             }
           
           else{
             ?>
             <script>
-              alert('Invalid Credentials <?php echo $utype ?>');
+              alert('Invalid Credentials <?php echo $password ?>');
               window.open('ulogin.php','_self');
             </script>
             <?php
@@ -50,7 +53,7 @@ if(isset($_POST['ulog']))
         } 
          else
          {            
-          $sql =mysqli_query($con,"SELECT * FROM faculty WHERE Email='$email' and Password='$password'");
+          $sql =mysqli_query($con,"SELECT * FROM faculty WHERE Email='$email'");
           $row = mysqli_num_rows($sql);
           if($row == 1)
           { 
@@ -60,12 +63,13 @@ if(isset($_POST['ulog']))
             $id = $data['Id'];
             session_start();
             $_SESSION['uid']=$id;
+            $_SESSION['user']=$utype;
             header('location:dashboard.php');
             }
           else{
             ?>
             <script>
-              alert('Invalid Credentials <?php echo $utype ?>');
+              alert('Invalid Credentials <?php echo $password ?>');
               window.open('ulogin.php','_self');
             </script>
             <?php
@@ -74,7 +78,7 @@ if(isset($_POST['ulog']))
         else{
           ?>
           <script>
-            alert('Invalid Credentials <?php echo $utype ?>');
+            alert('Invalid Credentials');
             window.open('ulogin.php','_self');
           </script>
           <?php
@@ -149,7 +153,7 @@ if(isset($_POST['ulog']))
                                     <select id="utype" class="form-control" name="utype" required="required" placeholder="Choose">
                                     <option value="" disabled selected>Choose</option>
                                       <option value="Student">Student</option>
-                                      <option value="Faculty">Faculty</option>
+                                    <!--  <option value="Faculty">Faculty</option>-->
                                     </select>
                                 </div>
                         </div>

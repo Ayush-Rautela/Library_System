@@ -107,6 +107,8 @@ background-size: cover;">
                           <?php
                           $sql=mysqli_query($con,'SELECT * from tblstudents');
                           $row=mysqli_fetch_array($sql);
+                      
+
                               $cnt=1;
                               while($row=mysqli_fetch_array($sql))
                                     {?>
@@ -117,25 +119,30 @@ background-size: cover;">
                                         <td><?php echo $row['EmailId']; ?></td>
                                         <td><?php echo $row['MobileNumber']; ?></td>
                                         <td><?php echo substr($row['RegDate'], 0); ?></td>
-                                        <?php if($row['Status']==1) 
+                                        <?php 
+                                        if($row['Status']==1) 
                                         {
                                           echo '<td>Active</td>';
                                         }
                                         else
                                           {
-                                          echo '<td>Blocked</td>';
+                                          echo '<td>Inactive</td>';
                                         }
                                           ?>
                                           <td class="center">
                                             <?php if($row['Status']==1)
                                                       {?>
-                                                <a href="regstud.php?inid=<?php echo htmlentities($row['id']);?>" onclick="return confirm('Are you sure you want to block this student?');" >  <button class="btn btn-danger"> Inactive</button></a>
-                                                <?php } else {?>
+                                                <a href="regstud.php?inid=<?php echo htmlentities($row['id']);?>" onclick="return confirm('Are you sure you want to Inactive this student?');" >  <button class="btn btn-danger"> Inactive</button></a>
+                                                <?php 
+                                                } 
+                                                else 
+                                                {?>
                                                 <a href="regstud.php?id=<?php echo htmlentities($row['id']);?>" onclick="return confirm('Are you sure you want to active this student?');"><button class="btn btn-primary"> Active</button></a> 
                                                 <?php } ?>
                                           </td>
                                       </tr>
-                                      <?php $cnt=$cnt+1;}?>
+                                      <?php $cnt=$cnt+1;
+                                    }?>
                           
                         </tbody>
                         </table>

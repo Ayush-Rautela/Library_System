@@ -2,35 +2,98 @@
  	session_start();
 	error_reporting(0);
 	include('config.php');
-	if($_SESSION['login']!=''){
-	$_SESSION['login']='';
-	}
- 
-   
    if(isset($_POST["okay"]))
       {
-      	 $ph=$_POST["sid"];
-		 $ph1=$_POST["sql"];
-		 $ph7=$_POST["sqz"];
-		$sql=mysqli_query($con,"SELECT Status,QId,Answer,FullName from tblstudents where StudentId='$ph' and QId='$ph1' and Answer='$ph7'");
-		$result=mysqli_fetch_array($sql);
-      	 if(mysqli_num_rows($sql) == 1)
-  			{            
-    			if($result['Status']==1)
-      				{
-				        $_SESSION['login']=$_POST["sid"];
-				        $_SESSION['uname']=$result["FullName"];
-				        echo "<script type='text/javascript'> document.location ='conpass.php'; </script>";
-				    }
-				    else 
-				      {
-				        echo "<script>alert('Your Account Has been blocked .Please contact admin');</script>";
-				      }
-				  }  
-				else{
+        $from = "rohitsinghgusain03@gmail.com";
+        $to=$_POST['sid'];
+        $usertype = $_POST['utype'];
+        if($usertype=='Student')
+        {
+		      $sql=mysqli_query($con,"SELECT * from tblstudents where EmailId='$to'");
+		      $result=mysqli_fetch_array($sql);
+      	  if(mysqli_num_rows($sql) == 1)
+  			  {         					
+       //  $Emailid = $result['EmailId']; 
+            $id = $result['id'];
+            session_start();
+            $_SESSION['login'] = $id;
+            $_SESSION['utype']= $usertype;
+        //$_SESSION['uname']=$result['FullName'];
+            $sub = "Password Reset";
+            $username = $result['FullName'];
+            $body = "Hi,$username.Click here to reset your password http://localhost/libphp/libphp/conpass.php";
+            if(mail($to,$sub,$body,$from))
+           {
+            ?>
+          
+        <script>
+          alert('Check your mailbox');
+          window.open('fordemo.php','_self');
+        </script>
+          <?php
+        }
+        else
+        {
+          ?>
+          <script>
+          alert('Email Sending Failed');
+          window.open('fordemo.php','_self');
+        </script>
+        <?php
+				//echo "<script type='text/javascript'> document.location ='conpass.php'; </script>";
+        }
+      }  
+		else
+		{
 				echo "<script>alert('Invalid Details');</script>";
-				}
-      }
+		}
+      
+    }
+    else{
+
+      $sql=mysqli_query($con,"SELECT * from faculty where Email='$to'");
+		      $result=mysqli_fetch_array($sql);
+      	  if(mysqli_num_rows($sql) == 1)
+  			  {         					
+       //  $Emailid = $result['EmailId']; 
+            $id = $result['Id'];
+            session_start();
+            $_SESSION['login'] = $id;
+            $_SESSION['utype']= $usertype;
+            $sub = "Password Reset";
+            $username = $result['FName'];
+            $body = "Hi,$username.Click here to reset your password http://localhost/libphp/libphp/conpass.php";
+            if(mail($to,$sub,$body,$from))
+            {
+             ?>
+           
+         <script>
+           alert('Check your mailbox');
+           window.open('fordemo.php','_self');
+         </script>
+           <?php
+         }
+         else
+         {
+           ?>
+           <script>
+           alert('Email Sending Failed');
+           window.open('fordemo.php','_self');
+         </script>
+         <?php
+         }
+       }
+       else
+       {
+         ?>
+        <script>
+        alert("Invalid Email Address");
+        </script>
+        <?php
+       }  
+    }
+  }
+    
  ?>
 <!DOCTYPE html>
 <html>
@@ -67,7 +130,7 @@
             <div id="card-body">
               <form role="form" method="post">
               <div class="form-group row" style="margin-top:2%">
-                <label for="sid" class="col-md-4 col-form-label text-md-right" style="font-weight:bold;">User ID </label>
+                <label for="sid" class="col-md-4 col-form-label text-md-right" style="font-weight:bold;">Email ID </label>
                 <div class="col-md-6">
                   <input type="text" style="background:rgba(255,255,255,0.5);" id="sid" class="form-control" name="sid" placeholder="User ID" autocomplete="off">
 	            </div>
@@ -75,21 +138,13 @@
             <div class="form-group row">
                <label for="sql" class="col-md-4 col-form-label text-md-right" style="font-weight:bold;"> Category<span style="color:red;">*</span></label>
                		<div class="col-md-6">
-                    	<select class="form-control" name="sql" required="required">
-                          <option selected>--Select--</option>
-						  <option value="1">What is your birthplace?</option>
-						  <option value="2">What is your Mother's last name?</option>
-						  <option value="3">What is your last name?</option>
-						  <option value="4">What is your first pet name?</option>
-						</select>
+                   <select id="utype" class="form-control" name="utype" required="required" placeholder="Choose">
+                                    <option value="" disabled selected>Choose</option>
+                                      <option value="Student">Student</option>
+                                      <!--<option value="Faculty">Faculty</option>-->
+                                    </select>
               		</div>
 			</div>
-			<div class="form-group row" style="margin-top:2%">
-                <label for="sqz" class="col-md-4 col-form-label text-md-right" style="font-weight:bold;">Your Answer </label>
-                <div class="col-md-6">
-                  <input type="text" style="background:rgba(255,255,255,0.5);" id="sqz" class="form-control" name="sqz" placeholder="Your Answer" autocomplete="off">
-	            </div>
-	         </div>
 	         <div class="form-group text-center">
               <button type="submit" class="btn" style="background:rgba(128,0,0,1);color:white;" name="okay">Login</button>
               </div>

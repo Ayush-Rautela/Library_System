@@ -38,8 +38,7 @@
                 <li><a class="nav-link" href="my_profile.php">My Profile</a></li>
                 <li><a class="nav-link" href="changepassword.php">Change Password</a></li>
               </ul>
-            </li>
-            <li><a class="nav-link" href="home.php">Reserve Book</a></li>
+</li>
              <li><a class="nav-link" href="issued_books.php">Issued Books</a></li>
             <li><a style="cursor: pointer;">Welcome <?php echo $_SESSION['stdid'];?> <img src="css/8.jpg" alt="avatar" class="avatar"></a></li>
           </ul>

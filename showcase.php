@@ -13,21 +13,21 @@
   </ul>
   <div class="carousel-inner" style="width:110%;height:10%; align:right; ">
     <div class="carousel-item active">
-      <img src="upload/lib33.jpg" alt="Los Angeles" width="1100" height="60">
+      <img src="upload/lib2.jpg" alt="Los Angeles" width="1100" height="60">
       <div class="carousel-caption">
         <h3>Reader's Heaven</h3>
         <p>A perfect place for those who are into books!</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="upload/lib3.jpg" alt="Chicago" width="1100" height="60">
+      <img src="upload/lib.jpg" alt="Chicago" width="1100" height="60">
       <div class="carousel-caption">
         <h3>Teacher's Corner</h3>
         <p>A place for Mentors!</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="upload/lib2.jpg" alt="New York" width="1100" height="60">
+      <img src="upload/liblib.jpg" alt="New York" width="1100" height="60">
       <div class="carousel-caption">
         <h3>Knowledge Hub</h3>
         <p>From Books to Current Affairs on the tip of your hands!</p>

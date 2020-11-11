@@ -1,3 +1,43 @@
+<?php
+if(isset($_POST['submit']))
+{
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $sub = $_POST['subject'];
+  $msg = $_POST['message'];
+  $from = "from :". $email;
+  $to = "rohitsinghgusain03@gmail.com";
+  if(mail($to,$sub,$msg,$from))
+  {
+  ?>
+  <script>
+    alert('Mail Sent');
+    window.open('index.php','_self');
+  </script>
+    <?php
+  }
+  else
+  {
+    ?>
+    <script>
+    alert('Email Sending Failed');
+    window.open('index.php','_self');
+  </script>
+  <?php
+  }
+}
+  ?>
+  
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,25 +68,28 @@
        <?php include('showcase.php') ?>
         <div class="row">
           <div id="about" class="container text-center" style="background:rgba(255,255,255,0.5);margin-top: 10px;margin-bottom: 20px;">
-            <h3>AGI LIBRARY</h3>
+            <h3>DIT LIBRARY</h3>
             <p><em>The Book Hub!</em></p>
-            <p>We have created a Library website for AGI. This library consists each and every book of every department that is related to AGI family. Whether it's AIHM department or AIMCA or AITS or FCSA. Apart from that library also has its own collection of previous years Question Paper. Since the sole motto of the library is to provide every infromation that is in it's hand, the library also provide Newspapers to the students as well as to the faculty. The Library welcomes every student and faculty to share the ideas for the welfare of library. Anyone can search for books through this portal, to issue and reserve the book one needs to have the authorized ID of the Institute through which he or she can login in to his/her account for the further procedure.</p>
+            <p>We have created a Library website for DIT University. This library consists each and every book of every department that is related to DIT family. Whether it's Computer Application or other departments. Apart from that library also has its own collection of previous years Question Paper. Since the sole motto of the library is to provide every infromation that is in it's hand, the library also provide Newspapers to the students as well as to the faculty. The Library welcomes every student and faculty to share the ideas for the welfare of library. Anyone can search for books through this portal, to issue and reserve the book one needs to have the authorized ID of the Institute through which he or she can login in to his/her account for the further procedure.</p>
           </div>
           <div class="col-md-8 col-lg-8 text-center" id="contact" style="margin-left: 220px;">
             <div class="card" style="background:rgba(255,255,255,0.5);">
             <h1 class="card-header text-center" style="background-color:rgba(  128, 0, 0,0.8);color: white"><u>Contact</u></h1>
-           <form action="" method="post">
+           <form  method="post" class="form">
             <div class="card-body">
               <div class="form-group">
-                <input type="text" class="form-control" autocomplete="none" style="background: rgba(255,255,255, 0.5);color:white;" name="name" value="" placeholder="Enter Name">
+                <input type="text" class="form-control" required="required" autocomplete="none" style="background: rgba(255,255,255, 0.5);color:white;" name="name" value="" placeholder="Enter Name">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" name="email" autocomplete="none" style="background: rgba(255,255,255, 0.5);color:white;" value="" placeholder="Enter Email">
+                <input type="email" class="form-control" required="required" name="email" autocomplete="none" style="background: rgba(255,255,255, 0.5);color:white;" value="" placeholder="Enter Email">
               </div>
               <div class="form-group">
-                <textarea name="message" class="form-control" rows="8" cols="80" placeholder="Enter your Message........" style="background: rgba(255,255,255, 0.5);color:white;"></textarea>
+                <input type="text" class="form-control" required="required" name="subject" autocomplete="none" style="background: rgba(255,255,255, 0.5);color:white;" value="" placeholder="Enter Subject">
               </div>
-              <button type="submit" class="btn" style="background-color:rgba(128,0,0,1);color:white" name="">Send Message</button>
+              <div class="form-group">
+                <textarea class="form-control" required="required" name="message" rows="8" cols="80" placeholder="Enter your Message........" style="background: rgba(255,255,255, 0.5);color:white;"></textarea>
+              </div>
+              <button type="submit" class="btn" style="background-color:rgba(128,0,0,1);color:white" name="submit">Send Message</button>
             </div>
           </form>
           </div>

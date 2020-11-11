@@ -146,7 +146,7 @@ $(document).ready(function(){
                         <div class="form-group row">
                             <label for="usertype" class="col-md-4 col-form-label text-md-right" style="font-weight:bold;font-family: sans-serif; font-size:14px;">User Type</label>
                             <div class="col-md-6">
-                                <label class="radio-inline"><input type="radio" name="usertype" onclick="maint(0);" >Faculty</label>
+                               <!-- <label class="radio-inline"><input type="radio" name="usertype" onclick="maint(0);" >Faculty</label> -->
                                 <label class="radio-inline"><input type="radio" name="usertype" onclick="maint(1);">Student</label>
                             </div>
                         </div>
@@ -174,6 +174,7 @@ $(document).ready(function(){
                                       <option value="BBA">BBA</option>
                                       <option value="MCA">MCA</option>
                                       <option value="MBA">MBA</option>
+                                      <option value="MBA">FACULTY</option>
                                     </select>
                                 </div>
                         </div>

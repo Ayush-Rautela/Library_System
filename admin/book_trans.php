@@ -98,16 +98,16 @@ background-size: cover;">
                                      <tr>  
                                           <th>#</th>
                                          <th>Student ID</th>
-                                         <th>Student ID</th>
+                                         <th>Student Name</th>
                                          <th>Book Name</th>
                                          <th>ISBN </th>
                                          <th>Issued Date</th>
-                                         <th>Return Date</th>
+                                         <th>Return Status</th>
                                          <th>Action</th> 
                                      </tr>  
                                 </thead>  
                                 <?php 
-                                $sql=mysqli_query($con,"SELECT tblstudents.StudentId,tblstudents.FullName,tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId order by tblissuedbookdetails.id desc");
+                                $sql=mysqli_query($con,"SELECT tblstudents.StudentId,tblstudents.FullName,tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.RetrunStatus,tblissuedbookdetails.id as rid from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentID join tblbooks on tblbooks.id=tblissuedbookdetails.BookId order by tblissuedbookdetails.id desc");
                                 $cnt=1; 
                                 while($row = mysqli_fetch_array($sql))  
                                 {?>
@@ -120,13 +120,15 @@ background-size: cover;">
                                     <td><?php echo substr($row['IssuesDate'], 0); ?></td>
                                     <?php
                                     $msg='Not returned yet';
-                                    if($row['ReturnDate']=='')
+                                    $msg1='Returned';
+                                    if($row['RetrunStatus']=='1')
                                     {
-                                        echo '<td>'.$msg.'</td>';
+                                        echo '<td>'.$msg1.'</td>';
+                                        
                                     }
                                         else
                                         {
-                                          echo '<td>'.$row['ReturnDate'].'</td>';
+                                            echo '<td>'.$msg.'</td>';
                                         }
                                      ?>
                                      <td class="center">

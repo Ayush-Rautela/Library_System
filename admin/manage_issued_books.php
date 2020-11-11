@@ -1,15 +1,19 @@
 <?php
 session_start();
 error_reporting(0);
-$con=mysqli_connect('localhost','root','','library');
-
+$con=mysqli_connect('localhost','root','','mysql');
+if(strlen($_SESSION['uid'])==0)
+    {   
+header('location:index.php');
+}
+else{ 
 
 if(isset($_POST['return']))
 {
-$rid=intval($_GET['rid']);
+$rid= intval($_GET['rid']);
 $fine=$_POST['fine'];
 $rstatus=1;
-$sql=mysqli_query($con,"UPDATE tblissuedbookdetails set fine='$fine',RetrunStatus='$rstatus' where id='$rid'");
+$sql=mysqli_query($con,"UPDATE tblissuedbookdetails SET fine='$fine',RetrunStatus='$rstatus' where id='$rid'");
 $_SESSION['msg']="Book Returned successfully";
 header('location:book_trans.php');
 }
@@ -107,19 +111,27 @@ background-size: cover;">
               <form role="form" method="post">
               <?php 
               $rid=intval($_GET['rid']);
-              $sql=mysqli_query($con,"SELECT tblstudents.FullName,tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.ReturnDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine,tblissuedbookdetails.RetrunStatus from  tblissuedbookdetails join tblstudents on tblstudents.StudentId=tblissuedbookdetails.StudentId join tblbooks on tblbooks.id=tblissuedbookdetails.BookId where tblissuedbookdetails.id=$rid ");
-              $rows=mysqli_fetch_array($sql);
-                              ?> 
+            
+                  $sql = mysqli_query($con ,"SELECT tblstudents.FullName,tblbooks.BookName,tblbooks.ISBNNumber,tblissuedbookdetails.IssuesDate,tblissuedbookdetails.id as rid,tblissuedbookdetails.fine,tblissuedbookdetails.RetrunStatus FROM tblissuedbookdetails JOIN tblstudents ON tblstudents.StudentId=tblissuedbookdetails.StudentID JOIN tblbooks ON tblbooks.id=tblissuedbookdetails.BookId where tblissuedbookdetails.id=$rid");
+                // $sql = mysqli_query($con ," SELECT * FROM tblissuedbookdetails JOIN tblstudents ON tblstudents.StudentId=tblissuedbookdetails.StudentID JOIN tblbooks ON tblbooks.id=tblissuedbookdetails.BookId where tblissuedbookdetails.id=$rid");
+               // $sql = mysqli_query($con ,"select * from tblissuedbookdetails inner join tblstudents on tblissuedbookdetails.StudentID=tblstudents.StudentId where tblissuedbookdetails.id=$rid"); 
+               // $sql = mysqli_query($con ,"SELECT * from tblstudents INNER JOIN tblissuedbookdetails ON tblstudents.StudentId=tblissuedbookdetails.StudentID where tblissuedbookdetails.id=$rid");                              
+               //$sql = mysqli_query($con ,"SELECT * from tblissuedbookdetails where id='$rid'");
+               $rows1 = mysqli_num_rows($sql);
+                   $rows=mysqli_fetch_array($sql);
+                  ?>
+    
                 <div class="form-group">
                   <label>Student Name :</label>
                   <?php echo $rows['FullName'];?>
-                </div>
+
+                 </div>
                 <div class="form-group">
-                  <label>Book Name :</label>
+                  <label>Book Name :</label> 
                   <?php echo $rows['BookName'];?>
-                </div>
+                 </div>
                 <div class="form-group">
-                  <label>ISBN :</label>
+                  <label>ISBN :</label> 
                   <?php echo $rows['ISBNNumber'];?>
                 </div>
                 <div class="form-group">
@@ -127,31 +139,31 @@ background-size: cover;">
                   <?php echo $rows['IssuesDate'];?>
                 </div>
                 <div class="form-group">
-                  <label>Book Returned Date :</label>
-                  <?php if($rows['ReturnDate']=="")
+                  <label>Book Returned Status :</label>
+                  <?php if($rows['RetrunStatus']=="1")
                           {
-                              echo htmlentities("Not Return Yet");
+                              echo htmlentities("Returned");
                           } else 
                           {
-                              echo $rows['ReturnDate'];
+                              echo $rows['Not Return Yet'];
                           }?>
                 </div>
                 <div class="form-group">
-                  <label>Fine (in ₹) :</label>
+                  <label>Fine (in Rs) :</label>
                     <?php 
                     if($rows['fine']=="")
                     {?>
                       <input class="form-control" type="text" name="fine" id="fine"  required />
                     <?php }else 
                     {
-                      echo $rows['fine']."₹";
+                      echo $rows['fine'];
                     }?>
                 </div>
                 <?php if($rows['RetrunStatus']==0)
                         {?>
-                            <button type="submit" name="return" id="submit" class="btn" style="background:rgba(128,0,0,1); color:white">Return Book </button>
+                            <button type="submit" name="return"  class="btn" style="background:rgba(128,0,0,1); color:white">Return Book </button>
               </div>
-                        <?php } ?>
+                        <?php }}?>
               </form>
             </div>
           </div>

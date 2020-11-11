@@ -35,7 +35,7 @@ Accessibility
 Layouts
 --------------------------------------------------------------*/
 body {
-  background:background:rgba( 128, 0, 0,0.8);;
+  background:rgba( 128, 0, 0,0.8);
   line-height: 1.4;
   font-family: sans-serif;
 }
@@ -60,7 +60,7 @@ body {
 Header styles minus menu
 --------------------------------------------------------------*/
 .masthead {
-  background: background:rgba(  128, 0, 0,1);;
+  background:rgba(  128, 0, 0,1);;
 }
 
 .site-title {
@@ -185,7 +185,7 @@ Base styles that apply to all menu items
   list-style-type: none;
   padding: 0;
   margin: 0;
-  background: hsl(0, 0%, 15%);
+  
 }
 
 .menu li a {

@@ -4,22 +4,50 @@ include('config.php');
 error_reporting(0);
 if(strlen($_SESSION['login'])==0)
     {   
-header('location:ulogin.php');
-}
+      header('location:ulogin.php');
+    }
 else{ 
+  $password = $_POST['newpassword'];
+  $cpassword = $_POST['confirmpassword'];
+  $userid1=$_SESSION['login'];
+  $utype1 = $_SESSION['utype'];
+  
+
 if(isset($_POST['change']))
   {
-    $newpassword=md5($_POST['newpassword']);
-    $userid=$_SESSION['login'];
-    $sql =mysqli_query($con,"SELECT * FROM tblstudents where StudentId='$userid'");
-    $row=mysqli_fetch_array($sql);
-    if(mysqli_num_rows($sql) == 1)
+    if($password == $cpassword)
     {
-    $con1=mysqli_query($con,"UPDATE tblstudents set Password='$newpassword' where StudentId='$userid'");
-    header('location:home.php');
-    }
-  }
+      if($utype1=='Student')
+      {
+      $userid = $_SESSION['login'];
+      $newpassword=password_hash($password,PASSWORD_DEFAULT);
+      $sql =mysqli_query($con,"SELECT * FROM tblstudents where id='$userid'");
+      $data=mysqli_fetch_array($sql);
+      $email = $data['EmailId'];
+      $con1=mysqli_query($con,"UPDATE tblstudents set Password='$newpassword' where EmailId='$email'");
+      header('location:ulogin.php');
+      }
+  else{
 
+      $userid = $_SESSION['login'];
+      $newpassword=password_hash($password,PASSWORD_DEFAULT);
+      $sql =mysqli_query($con,"SELECT * FROM faculty where Id='$userid'");
+      $data=mysqli_fetch_array($sql);
+      $email = $data['Email'];
+      $con1=mysqli_query($con,"UPDATE faculty set Password='$newpassword' where Email='$email'");
+      header('location:ulogin.php');
+      }
+}
+  else{
+    ?>
+    <script>
+    alert("Password Doesn't Match");
+    
+    </script>
+    <?php
+  }
+  }
+}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -62,18 +90,6 @@ if(isset($_POST['change']))
         }
     </style>
   </head>
-  <script type="text/javascript">
-function valid()
-{
-if(document.chngpwd.newpassword.value!= document.chngpwd.confirmpassword.value)
-{
-alert("New Password and Confirm Password Field do not match  !!");
-document.chngpwd.confirmpassword.focus();
-return false;
-}
-return true;
-}
-</script>
 <body style="background-image: url('lib.png');
 background-repeat: no-repeat;
 background-size: cover;">
@@ -84,7 +100,7 @@ background-size: cover;">
 <div class="container">
 <div class="row pad-botm">
 <div class="col-md-12">
-<h4 class="header-line" style="color: white">Welcome <?php echo $_SESSION['login']; ?>, Change your Password</h4>
+<h4 class="header-line" style="color: white">Welcome,You can Change your Password Here</h4>
 </div>
 </div>           
 <!--LOGIN PANEL START-->           
@@ -95,7 +111,7 @@ background-size: cover;">
 Change Password</u></h2>
 </div>
 <div class="panel-body">
-<form role="form" method="post" onSubmit="return valid();" name="chngpwd">
+<form role="form" method="post" name="chngpwd">
 <div class="form-group">
 <label>Enter Password</label>
 <input class="form-control" type="password" name="newpassword" autocomplete="off" required  />
@@ -106,7 +122,7 @@ Change Password</u></h2>
 <input class="form-control"  type="password" name="confirmpassword" autocomplete="off" required  />
 </div>
 <div class="form-group text-center">
- <button type="submit" name="change" class="btn" style="background:rgba(128,0,0,1);color:white" onclick="return confirm('Your password has been changed, select ok to go back home!!');">Change </button> 
+ <button type="submit" name="change" class="btn" style="background:rgba(128,0,0,1);color:white" onSubmit="return confirm('Your password has been changed, select ok to go back to Login !!');">Change </button> 
 </div>
 </form>
  </div>
@@ -121,4 +137,3 @@ Change Password</u></h2>
   <?php include('footer.php'); ?>
 </body>
 </html>
-<?php }?>

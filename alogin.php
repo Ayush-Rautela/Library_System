@@ -119,7 +119,7 @@ else
                 </div> 
               <div class="form-group text-center">
               <button type="submit" class="btn" style="background:rgba(128,0,0,1);color:white;" name="alog">Login</button>
-              <a class="" href="#" style="text-decoration:none;color:white;outline:none;margin-left:15px;">Forgot Password?</a>
+             <!-- <a class="" href="aforget.php" style="text-decoration:none;color:white;outline:none;margin-left:15px;">Forgot Password?</a>-->
               </div>
             </form>
         </div>

@@ -1,5 +1,9 @@
 
-
+<style>
+  .multi-level-nav{
+    color: white;
+  }
+  </style>
 <!-- DATATABLE STYLE  -->
     <link href="../js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 <!-- DATATABLE SCRIPTS  -->
@@ -45,7 +49,7 @@
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="add_book.php">Add Book</a></li>
-                <li><a class="nav-link" href="book_trans.php">Manage Add Books</a></li>
+                <li><a class="nav-link" href="manage_books.php">Manage Add Books</a></li>
               </ul>
             </li>
             <li class="dropdown">

@@ -8,19 +8,23 @@ header('location:index.php');
 else{ 
 if(isset($_POST['change']))
   {
-    $password=md5($_POST['password']);
-    $newpassword=md5($_POST['newpassword']);
-    $username=$_SESSION['alogin'];
-    $sql =mysqli_query($con,"SELECT Password FROM admin where UserName='$username' and Password='$password'");
+    $id = $_SESSION['uid'];
+    $password=$_POST['password'];
+    $newpassword=$_POST['newpassword'];
+    $cpassword = $_POST['cpassword'];
+   // $username=$_SESSION['alogin'];
+    $sql =mysqli_query($con,"SELECT * FROM admin where id='$id'");
+
 if(mysqli_num_rows($sql) == 1)
 {
-$con1=mysqli_query($con,"UPDATE admin set Password='$newpassword' where UserName='$username'");
+$con1=mysqli_query($con,"UPDATE admin set Password='$newpassword' where id='$id'");
 $msg="Your Password succesfully changed";
 }
 else {
 $error="Your current password is wrong";  
 }
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -117,7 +121,7 @@ Change Password</u></h2>
 
 <div class="form-group">
 <label>Confirm Password </label>
-<input class="form-control"  type="password" name="confirmpassword" autocomplete="off" required  />
+<input class="form-control"  type="password" name="cpassword" autocomplete="off" required  />
 </div>
 <div class="form-group text-center">
  <button type="submit" name="change" class="btn" style="background:rgba(128,0,0,1);color:white">Change </button> 

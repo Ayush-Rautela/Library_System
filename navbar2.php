@@ -35,7 +35,7 @@
           </ul>
         </nav><!-- #multi-level-nav .multi-level-nav -->
 
-        <nav id="social-menu" class="social-menu" role="navigation">
+       <!-- <nav id="social-menu" class="social-menu" role="navigation">
           <ul>
             <li><a href="https://twitter.com"><span class="screen-reader-text">Twitter</span></a></li>
             <li><a href="https://github.com"><span class="screen-reader-text">Github</span></a></li>
@@ -43,7 +43,7 @@
             <li><a href="http://dribbble.com"><span class="screen-reader-text">Dribbble</span></a></li>
             <li><a href="http://instagram.com"><span class="screen-reader-text">Instagram</span></a></li>
           </ul>
-        </nav> <!-- .social-menu -->
+        </nav>--> <!-- .social-menu -->
       </div><!-- .mixed-menu -->
       </div><!-- main-menu -->
     </header><!-- .masthead -->
